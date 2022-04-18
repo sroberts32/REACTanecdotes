@@ -2,14 +2,7 @@ import React, {useState} from "react";
 
 const App = (props) => {
 	const [index, setIndex] = useState(0)
-	const [key, setKey] = useState(0)
-	const [points, setPoints] = useState({0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0})
-
-	const setVote = () => {
-		const copy = { ...points }
-		copy[key] += 1
-		setPoints(copy)
-	  }
+	const [points, setPoints] = useState([0, 0, 0, 0, 0, 0])
 
 	const anecdotes = [
 		'If it hurts, do it more often',
@@ -23,11 +16,17 @@ const App = (props) => {
 	const handleChange = () => {
 		setIndex(Math.floor(Math.random()*anecdotes.length))
 	}
+
+	const setVote = () => {
+		let copy = [...points]
+		copy[index]+=1
+		setPoints(copy)
+	}
 	
 	return (
 		<div>
 			<p>{anecdotes[index]}</p>
-			<p>has {points[key]} votes</p>
+			<p>has {points[index]} votes</p>
 			<button onClick={setVote}>Vote</button>
 			<button onClick = {handleChange}>Next Anecdote</button>
 		</div>
