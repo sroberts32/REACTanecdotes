@@ -1,8 +1,16 @@
 import React, {useState} from "react";
 
-const App = () => {
+const App = (props) => {
 	const [index, setIndex] = useState(0)
-	
+	const [key, setKey] = useState(0)
+	const [points, setPoints] = useState({0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0})
+
+	const setVote = () => {
+		const copy = { ...points }
+		copy[key] += 1
+		setPoints(copy)
+	  }
+
 	const anecdotes = [
 		'If it hurts, do it more often',
 		'Adding manpower to a late software project makes it later!',
@@ -18,8 +26,10 @@ const App = () => {
 	
 	return (
 		<div>
-			<button onClick = {handleChange}>Next Anecdote</button>
 			<p>{anecdotes[index]}</p>
+			<p>has {points[key]} votes</p>
+			<button onClick={setVote}>Vote</button>
+			<button onClick = {handleChange}>Next Anecdote</button>
 		</div>
 	)
 }
