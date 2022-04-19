@@ -1,8 +1,7 @@
 import React, {useState} from "react";
-
 const App = (props) => {
 	const [index, setIndex] = useState(0)
-	const [points, setPoints] = useState([0, 0, 0, 0, 0, 0])
+	const [points, setPoints] = useState({0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0})
 
 	const anecdotes = [
 		'If it hurts, do it more often',
@@ -18,17 +17,32 @@ const App = (props) => {
 	}
 
 	const setVote = () => {
-		let copy = [...points]
-		copy[index]+=1
-		setPoints(copy)
+		setPoints({...points, [index]: points[index]+1
+		})
+	}
+
+	const setMax = () => {
+		let max = -1, maxKey = -1
+		
+		for(let key in points) {
+			if (points[key] > max) {
+				maxKey = key
+				max = points[key]
+			}
+		}
+		return maxKey
 	}
 	
 	return (
 		<div>
+			<h1>Anecdote of the Day</h1>
 			<p>{anecdotes[index]}</p>
 			<p>has {points[index]} votes</p>
 			<button onClick={setVote}>Vote</button>
 			<button onClick = {handleChange}>Next Anecdote</button>
+			<h1>Anecdote with Most Votes</h1>
+			<p>{anecdotes[setMax()]}</p>
+		
 		</div>
 	)
 }
